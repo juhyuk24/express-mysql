@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
+const App = () => {
+  const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+        try {
+          const response = await fetch('http://118.67.134.110:8000/nodem/all');
+          const jsonData = await response.json();
+          setData(jsonData);
+        } catch (error) {
+          console.log('Error fetching data:', error);
+        }
+      };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Data:</h1>
+      <script>fetchData();</script>
+      <ul>
+        {data.map((item, index) => (
+          <li> {item.Geometry}, {item.node_id}, {item.node_guid}, {item.family_name}, {item.category_name},
+           {item.minx}, {item.miny}, {item.minz}, {item.maxx}, {item.maxy}, {item.maxz} </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
