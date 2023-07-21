@@ -3,16 +3,13 @@ const mysql = require('mysql');
 
 const app = express();
 
-// MySQL 데이터베이스 연결 설정
-const connection = mysql.createConnection({
-  host: '118.67.134.110',     // 데이터베이스 호스트
-  user: 'root',  // 데이터베이스 사용자 이름
-  password: 'root1234?',  // 데이터베이스 비밀번호
-  database: 'DSC01'   // 데이터베이스 이름
-});
+// 데이터베이스 연결 설정
+Class.forName("kr.co.realtimetech.kairos.jdbc.kairosDriver");
+const con = DriverManager.getConnection(
+    "jdbc:kairos:// localhost:5000/ETRI", "root", "root");
 
 // 데이터베이스 연결
-connection.connect((err) => {
+con.connect((err) => {
   if (err) {
     console.error('Database connection failed: ', err);
   } else {
